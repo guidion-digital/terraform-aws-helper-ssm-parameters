@@ -29,6 +29,7 @@ locals {
 module "ssm_parameter" {
   source = "./modules/ssm-parameter"
 
+
   for_each = local.parameters
 
   parameter_name          = each.value.parameter_name
