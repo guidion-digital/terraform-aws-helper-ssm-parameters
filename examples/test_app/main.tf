@@ -6,7 +6,7 @@ module "ssm_parameters" {
   stage            = "test"
 
   parameters = {
-    "sensitive" = {
+    "foobar_sensitive" = {
       value = "foobar"
 
       tags = {
@@ -14,8 +14,12 @@ module "ssm_parameters" {
       }
     }
 
-    "non_sensitive" = {
+    "foobar_non_sensitive" = {
       insecure_value = "foobar"
     }
   }
+}
+
+output "ssm_parameter_arns" {
+  value = module.ssm_parameters.arns
 }
