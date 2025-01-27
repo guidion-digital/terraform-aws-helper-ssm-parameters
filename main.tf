@@ -1,7 +1,7 @@
 locals {
   base_tags = {
     "Terraform" = "true",
-    "Module"    = "app-lambda",
+    "Module"    = "ssm-parameters",
     "project"   = var.project,
     "stage"     = var.stage
   }
