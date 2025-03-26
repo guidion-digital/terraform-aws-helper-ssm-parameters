@@ -17,6 +17,11 @@ module "ssm_parameters" {
     "foobar_non_sensitive" = {
       insecure_value = "foobar"
     }
+
+    "foobar_non_sensitive_ignore_changes" = {
+      insecure_value = "foobar"
+      ignore_changes = true
+    }
   }
 }
 
