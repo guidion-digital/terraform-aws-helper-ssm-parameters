@@ -8,7 +8,7 @@ module "these_tags" {
 
   tags = {
     "Terraform"   = "true",
-    "Module"      = "app-lambda",
+    "Module"      = "ssm-parameters",
     "project"     = var.project,
     "application" = var.application_name,
     "stage"       = var.stage
