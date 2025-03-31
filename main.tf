@@ -1,3 +1,14 @@
+locals {
+  base_tags = {
+    "Terraform" = "true",
+    "Module"    = "app-lambda",
+    "project"   = var.project,
+    "stage"     = var.stage
+  }
+
+  tags = var.application_name != null ? merge(local.base_tags, { "application" = var.application_name, }) : local.base_tags
+}
+
 module "these_tags" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
@@ -6,13 +17,7 @@ module "these_tags" {
   name      = var.application_name
   delimiter = "-"
 
-  tags = {
-    "Terraform"   = "true",
-    "Module"      = "app-lambda",
-    "project"     = var.project,
-    "application" = var.application_name,
-    "stage"       = var.stage
-  }
+  tags = local.tags
 }
 
 locals {
@@ -26,11 +31,15 @@ locals {
   }
 }
 
+locals {
+  namespace = var.namespace != null ? var.namespace : var.application_name != null ? "/applications/${var.application_name}" : ""
+}
+
 module "ssm_parameter" {
   source = "./modules/ssm-parameter"
 
   for_each = local.parameters
 
-  parameter_name          = each.value.parameter_name
+  parameter_name          = "${local.namespace}/${each.value.parameter_name}"
   parameter_configuration = each.value.parameter_configuration
 }
