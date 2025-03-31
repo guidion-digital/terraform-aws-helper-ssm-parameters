@@ -4,8 +4,15 @@ variable "project" {
 }
 
 variable "application_name" {
-  description = "The application name"
+  description = "The application name. Used for namespacing if var.namespace is not supplied"
   type        = string
+  default     = null
+}
+
+variable "namespace" {
+  description = "Used for naming and tagging. Overrides var.application_name for namespacing if supplied"
+  type        = string
+  default     = null
 }
 
 variable "stage" {
